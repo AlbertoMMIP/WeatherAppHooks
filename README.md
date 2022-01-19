@@ -11,6 +11,6 @@ Used Tecnologies
 
 Run the project with: yarn start
 
-Test run with: yarn run test
+Run Test with: yarn run test
 
-Story Book run with: yarn run storybook
+Run Story Book with: yarn run storybook
