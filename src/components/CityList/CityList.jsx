@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types'
-import CityInfo from './../CytiInfo/CityInfo'
-import Weather from './../Weather/Weather'
+import CityInfo from './../CytiInfo'
+import Weather from './../Weather'
 
 const renderCityAndCountry = cityAndCountry => {
   const { city, country } = cityAndCountry
