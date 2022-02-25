@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 import { Grid } from '@mui/material';
-import IconState from '../IconState/IconState';
+import IconState, { validValues } from '../IconState/IconState';
 
 const ForeCastItem = ({ weekDay, hour, state, temperature }) => {
   return (
@@ -25,7 +25,7 @@ const ForeCastItem = ({ weekDay, hour, state, temperature }) => {
 ForeCastItem.propTypes = {
   weekDay: PropTypes.string.isRequired,
   hour: PropTypes.number.isRequired,
-  state: PropTypes.string.isRequired,
+  state: PropTypes.oneOf(validValues).isRequired,
   temperature: PropTypes.number.isRequired
 }
 
