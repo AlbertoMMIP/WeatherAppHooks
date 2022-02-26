@@ -1,8 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router,
   Switch,
-  Route,
-  Link } from 'react-router-dom';
+  Route
+} from 'react-router-dom';
+import CityPage from './pages/CityPage';
+import MainPage from './pages/MainPage';
+import NotFound from './pages/NotFoundPage';
+import WelcomPage from './pages/WelcomPage';
 
 
 const App = () => {
@@ -10,21 +14,18 @@ const App = () => {
     <div>
       <h1>App</h1>
       <Router>
-        <div>
-          <Link to='/main'>Ir a main</Link>
-        </div>
         <Switch>
           <Route exact path='/'>
-            Welcom
+            <WelcomPage />
           </Route>
           <Route path='/main'>
-            Main
+            <MainPage />
           </Route>
           <Route path='/city'>
-            City
+            <CityPage />
           </Route>
           <Route>
-            Not found
+            <NotFound />
           </Route>
         </Switch>
       </Router>
