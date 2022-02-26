@@ -8,6 +8,8 @@ Used Tecnologies
 	- Storybook
 	- Typeface-roboto
 	- react-icons
+	- Recharts
+	- React Router Dom (yarn add react-router-dom@5.1)
 
 Run the project with: yarn start
 
