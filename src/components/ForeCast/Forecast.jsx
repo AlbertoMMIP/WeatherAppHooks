@@ -38,4 +38,4 @@ Forecast.propTypes = {
   ).isRequired
 }
 
-export default Forecast
+export default Forecast;
