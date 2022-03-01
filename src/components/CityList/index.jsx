@@ -1,1 +1,1 @@
-export { default } from 'CityList.jsx'
+export { default } from './CityList'
