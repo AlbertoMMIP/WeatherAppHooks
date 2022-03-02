@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Grid } from '@mui/material';
 import CityInfo from '../components/CytiInfo/CityInfo';
 import Weather from '../components/Weather';
