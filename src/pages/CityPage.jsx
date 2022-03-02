@@ -4,7 +4,7 @@ import CityInfo from '../components/CytiInfo/CityInfo';
 import Weather from '../components/Weather';
 import WeatherDetails from '../components/WeatherDetails';
 import Forecast from '../components/ForeCast';
-import ForecastChar from '../components/ForecastChart';
+import ForecastChart from '../components/ForecastChart';
 
 const dataExample = [
   {
@@ -61,20 +61,21 @@ const CityPage = () => {
 
   return (
     <Grid container
-      justifyContent='center'>
-      <Grid item>
+      justifyContent='space-around'
+      direction='column'
+      spacing={2}>
+      <Grid item container
+        justifyContent='center'
+        alignItems='flex-end'>
         <CityInfo city={city} country={country} />
       </Grid>
-      <Grid container item xs={12}>
-        <Grid item xs={8}>
-          <Weather state={state} temperature={temperature} />
-        </Grid>
-        <Grid item xs={4}>
-          <WeatherDetails humidity={humidity} wind={wind} />
-        </Grid>
+      <Grid container item xs={12}
+        justifyContent='center'>
+        <Weather state={state} temperature={temperature} />
+        <WeatherDetails humidity={humidity} wind={wind} />
       </Grid>
       <Grid item>
-        <ForecastChar data={data} />
+        <ForecastChart data={data} />
       </Grid>
       <Grid item>
         <Forecast forecastItemList={forecastItemList} />

@@ -11,7 +11,7 @@ const cities = [
 
 test('City List render', async () => {
   const { findAllByRole } = render(<CityList cities={cities} onClickCity={ () => {} } />)
-  const items = await findAllByRole('listitem')
+  const items = await findAllByRole('button')
   expect(items).toHaveLength(4)
 })
 
@@ -22,7 +22,7 @@ test('City List click on item', async () => {
   
   const { findAllByRole } = render(<CityList cities={cities} onClickCity={fnClickOnItem} />)
 
-  const items = await findAllByRole('listitem')
+  const items = await findAllByRole('button')
 
   // Now, to simulate the action, we have to use fireEvent
   // fireEvent is part of lib testing-library/react

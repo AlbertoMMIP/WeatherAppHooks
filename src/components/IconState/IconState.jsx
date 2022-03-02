@@ -26,7 +26,7 @@ const stateByName = {
 const IconState = ({ state }) => {
   const StateByName = stateByName[state]
   return (
-    <IconContext.Provider value={{ size: '5em'}}>
+    <IconContext.Provider value={{ size: '6em'}}>
       <StateByName />
     </IconContext.Provider>
   )
