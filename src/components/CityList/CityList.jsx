@@ -14,11 +14,11 @@ const renderCityAndCountry = eventOnClickCity => cityAndCountry => {
         justify="center"
         alignItems="center"  >
         <Grid item
-          md={8} >
+          md={9} >
           <CityInfo city={city} country={country} />
         </Grid>
         <Grid item
-          md={4} >
+          md={3} >
           <Weather temperature={10} state='sunny'/>
         </Grid>
       </Grid>
