@@ -15,7 +15,9 @@
     "react-router-dom": "5.1",
     "react-scripts": "4.0.3",
     "recharts": "^2.1.9",
+    "three": "0.115.0",
     "typeface-roboto": "^1.1.13",
+    "vanta": "0.5.14",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
