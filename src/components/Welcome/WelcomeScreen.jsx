@@ -24,6 +24,17 @@ const WelcomScreen = ({ children }) => {
       
       console.log('Se establece un nuevo valor a vanta');
     }
+    // Start the saneamiento process
+    // Al salir de la pantalla debemos detener el efecto
+    // y des-asociar todos los recursos (div + efecto vanta)
+    // In the before bersion was willComponentUnmounted
+    return () => {
+      // This function is called when the resources will be destroy
+      if (vanta) {
+        vanta.destroy();
+        console.log('Free resources')
+      }
+    }
   }, [vanta])
 
   return (
