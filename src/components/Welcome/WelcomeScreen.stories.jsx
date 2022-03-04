@@ -7,4 +7,4 @@ export default {
   component: WelcomeScreen
 }
 
-export const WelcomeScreenExample = () => <WelcomeScreen />
+export const WelcomeScreenExample = () => <WelcomeScreen children={<h2>hola</h2>} />
