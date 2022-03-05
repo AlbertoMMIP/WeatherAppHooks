@@ -38,8 +38,8 @@ const WelcomScreen = ({ children }) => {
   }, [vanta])
 
   return (
-    <div ref={myRefDiv}>
-      WelcomScreen
+    <div className='full' ref={myRefDiv}>
+      {children}
     </div>
   )
 }
