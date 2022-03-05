@@ -5,7 +5,7 @@ import CityList from './../components/CityList';
 import AppFrame from './../components/AppFrame';
 
 const cities = [
-  { city: 'Mexico', country: 'CDMX' },
+  { city: 'México', country: 'Ciudad de México' },
   { city: 'España', country: 'Madrid' },
   { city: 'Argentina', country: 'Buenos Aires' },
   { city: 'Colombia', country: 'Bogota' }
