@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Grid, List, ListItem } from '@mui/material'
 import CityInfo from './../CytiInfo'
 import Weather from './../Weather'
-import { getUrlWeatherByCity } from '../../services/getUrlWeatherbyCity';
+import { getUrlWeatherByCityAndCountryCode } from '../../services/getUrlWeatherbyCity';
 
 // renderCityAndCountry it will be a funct that return another function
 const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
@@ -47,21 +47,23 @@ const CityList = ({ cities, onClickCity }) => {
 
   useEffect(() => {
     if (allWeather['Ciudad de México-México']) return;
-    const setWeather = (city, country) => {
-      axios.get(getUrlWeatherByCity(city))
+    const setWeather = (city, country, countryCode) => {
+      const url = getUrlWeatherByCityAndCountryCode(city, countryCode)
+      axios.get(url)
         .then(response => {
           const { data } = response;
           const temperature = data.main.temp
-          const state = 'sunny'
+          const state = data.weather[0].main.toLowerCase();
           setAllWeather(allWeather => ({ ...allWeather, [`${city}-${country}`]: { temperature, state } }))
         })
     }
-    cities.forEach(({ city, country }) => {
-      setWeather(city, country);
+    cities.forEach(({ city, country, countryCode }) => {
+      setWeather(city, country, countryCode);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cities])
   
-  // const weather = { temperature: 10, state: 'sunny'}
+  // const weather = { temperature: 10, state: 'clear'}
   return (
     <List>
       {
@@ -75,7 +77,8 @@ CityList.propTypes = {
   cities: PropTypes.arrayOf(
     PropTypes.shape({
       city: PropTypes.string.isRequired,
-      country: PropTypes.string.isRequired
+      country: PropTypes.string.isRequired,
+      countryCode: PropTypes.string.isRequired
     })
   ).isRequired,
   onClickCity: PropTypes.func.isRequired,

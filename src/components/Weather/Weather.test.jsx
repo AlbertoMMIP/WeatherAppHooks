@@ -5,7 +5,7 @@ import { render } from '@testing-library/react'
 // TDD
 test('Weather render sunny', async () => {
   // AAA Arrange Act Assert
-  const { findByRole } = render(<Weather temperature={40} state='sunny' />)
+  const { findByRole } = render(<Weather temperature={40} state='clear' />)
 
   const temp = await findByRole('heading')
 
@@ -15,7 +15,7 @@ test('Weather render sunny', async () => {
 // TDD
 test('Weather render cloudy', async () => {
   // AAA Arrange Act Assert
-  const { findByRole } = render(<Weather temperature={2} state='cloudy' />)
+  const { findByRole } = render(<Weather temperature={2} state='clouds' />)
 
   const temp = await findByRole('heading')
 
