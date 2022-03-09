@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { PropTypes } from 'prop-types'
+import { PropTypes } from 'prop-types';
 import axios from 'axios';
-import { Grid, List, ListItem } from '@mui/material'
-import CityInfo from './../CytiInfo'
-import Weather from './../Weather'
+import convertUnits from 'convert-units';
+import { Grid, List, ListItem } from '@mui/material';
+import CityInfo from './../CytiInfo';
+import Weather from './../Weather';
 import { getUrlWeatherByCityAndCountryCode } from '../../services/getUrlWeatherbyCity';
 
 // renderCityAndCountry it will be a funct that return another function
@@ -52,7 +53,7 @@ const CityList = ({ cities, onClickCity }) => {
       axios.get(url)
         .then(response => {
           const { data } = response;
-          const temperature = data.main.temp
+          const temperature = Number(convertUnits(data.main.temp).from('K').to('C').toFixed(0))
           const state = data.weather[0].main.toLowerCase();
           setAllWeather(allWeather => ({ ...allWeather, [`${city}-${country}`]: { temperature, state } }))
         })
