@@ -53,6 +53,17 @@ const CityList = ({ cities, onClickCity }) => {
           const state = data.weather[0].main.toLowerCase();
           setAllWeather(allWeather => ({ ...allWeather, [`${city}-${country}`]: { temperature, state } }))
         })
+        .catch(err => {
+          if (err.response) { // Errores que envia el server
+            const { data, status } = err.response;
+            console.log('data', data);
+            console.log('status', status);
+          } else if (err.request) { // Errores que no llegan al server
+            console.log('Server inaccesible o sin internet');
+          } else { // Errores inesperados
+            console.log('Error inesperado');
+          }
+        })
     }
     cities.forEach(({ city, country, countryCode }) => {
       setWeather(city, country, countryCode);
