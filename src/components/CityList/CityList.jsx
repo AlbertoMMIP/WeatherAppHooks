@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import axios from 'axios';
 import convertUnits from 'convert-units';
-import { Grid, List, ListItem } from '@mui/material';
+import { Grid, List, ListItem, Alert } from '@mui/material';
 import CityInfo from './../CytiInfo';
 import Weather from './../Weather';
 import { getUrlWeatherByCityAndCountryCode } from '../../services/getUrlWeatherbyCity';
@@ -41,6 +41,7 @@ const CityList = ({ cities, onClickCity }) => {
     }
   */
   const [allWeather, setAllWeather] = useState({});
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (allWeather['Ciudad de México-México']) return;
@@ -58,10 +59,13 @@ const CityList = ({ cities, onClickCity }) => {
             const { data, status } = err.response;
             console.log('data', data);
             console.log('status', status);
+            setError('Error en el servidor');
           } else if (err.request) { // Errores que no llegan al server
             console.log('Server inaccesible o sin internet');
+            setError('Server inaccesible o sin internet');
           } else { // Errores inesperados
             console.log('Error inesperado');
+            setError('Error inesperado');
           }
         })
     }
@@ -73,11 +77,16 @@ const CityList = ({ cities, onClickCity }) => {
   
   // const weather = { temperature: 10, state: 'clear'}
   return (
-    <List>
+    <div>
       {
-        cities.map(cityAndCountry => renderCityAndCountry(onClickCity)(cityAndCountry, allWeather[`${cityAndCountry.city}-${cityAndCountry.country}`]))
+        error && <Alert onClose={() => setError(null)} severity='error'>{error}</Alert> 
       }
-    </List>
+      <List>
+        {
+          cities.map(cityAndCountry => renderCityAndCountry(onClickCity)(cityAndCountry, allWeather[`${cityAndCountry.city}-${cityAndCountry.country}`]))
+        }
+      </List>
+    </div>
   )
 };
 
