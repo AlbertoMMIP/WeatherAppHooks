@@ -10,7 +10,6 @@ import { getUrlWeatherByCityAndCountryCode } from '../../services/getUrlWeatherb
 // renderCityAndCountry it will be a funct that return another function
 const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
   const { city, country } = cityAndCountry
-  // const { temperature, state } = weather
   return (
     <ListItem button key={city} onClick={eventOnClickCity}>
       <Grid container
@@ -45,37 +44,30 @@ const CityList = ({ cities, onClickCity }) => {
 
   useEffect(() => {
     if (allWeather['Ciudad de México-México']) return;
-    const setWeather = (city, country, countryCode) => {
-      const url = getUrlWeatherByCityAndCountryCode(city, countryCode)
-      axios.get(url)
-        .then(response => {
-          const { data } = response;
-          const temperature = Number(convertUnits(data.main.temp).from('K').to('C').toFixed(0))
-          const state = data.weather[0].main.toLowerCase();
-          setAllWeather(allWeather => ({ ...allWeather, [`${city}-${country}`]: { temperature, state } }))
-        })
-        .catch(err => {
-          if (err.response) { // Errores que envia el server
-            const { data, status } = err.response;
-            console.log('data', data);
-            console.log('status', status);
-            setError('Error en el servidor');
-          } else if (err.request) { // Errores que no llegan al server
-            console.log('Server inaccesible o sin internet');
-            setError('Server inaccesible o sin internet');
-          } else { // Errores inesperados
-            console.log('Error inesperado');
-            setError('Error inesperado');
-          }
-        })
+    const setWeather = async (city, country, countryCode) => {
+      try {
+        const url = getUrlWeatherByCityAndCountryCode(city, countryCode)
+        const response = await axios.get(url)
+        const { data } = response;
+        const temperature = Number(convertUnits(data.main.temp).from('K').to('C').toFixed(0))
+        const state = data.weather[0].main.toLowerCase();
+        setAllWeather(allWeather => ({ ...allWeather, [`${city}-${country}`]: { temperature, state } }))
+      } catch(err) {
+        if (err.response) {
+          setError('Error en el servidor');
+        } else if (err.request) { // Errores que no llegan al server
+          setError('Server inaccesible o sin internet');
+        } else { // Errores inesperados
+          setError('Error inesperado');
+        }
+      }
     }
     cities.forEach(({ city, country, countryCode }) => {
       setWeather(city, country, countryCode);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cities])
-  
-  // const weather = { temperature: 10, state: 'clear'}
+
   return (
     <div>
       {
