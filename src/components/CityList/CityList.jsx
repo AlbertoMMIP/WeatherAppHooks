@@ -7,11 +7,13 @@ import CityInfo from './../CytiInfo';
 import Weather from './../Weather';
 import { getUrlWeatherByCityAndCountryCode } from '../../services/getUrlWeatherbyCity';
 
+
+const getCityCode = (city, countryCode) => `${city}-${countryCode}`
 // renderCityAndCountry it will be a funct that return another function
 const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
-  const { city, country } = cityAndCountry
+  const { city, country, countryCode } = cityAndCountry
   return (
-    <ListItem button key={city} onClick={eventOnClickCity}>
+    <ListItem button key={getCityCode(city, countryCode)} onClick={eventOnClickCity}>
       <Grid container
         justify="center"
         alignItems="center"  >
@@ -33,10 +35,10 @@ const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
 const CityList = ({ cities, onClickCity }) => {
   /*
     allWeather = {
-      'Ciudad de México-México': {},
-      'Madrid-España': {},
-      'Buenos Aires-Argentina': {},
-      'Bogota-Colombia': {}
+      'Ciudad de México-MX': {},
+      'Madrid-ES': {},
+      'Buenos Aires-AR': {},
+      'Bogota-CO': {}
     }
   */
   const [allWeather, setAllWeather] = useState({});
@@ -44,14 +46,14 @@ const CityList = ({ cities, onClickCity }) => {
 
   useEffect(() => {
     if (allWeather['Ciudad de México-México']) return;
-    const setWeather = async (city, country, countryCode) => {
+    const setWeather = async (city, countryCode) => {
       try {
         const url = getUrlWeatherByCityAndCountryCode(city, countryCode)
         const response = await axios.get(url)
         const { data } = response;
         const temperature = Number(convertUnits(data.main.temp).from('K').to('C').toFixed(0))
         const state = data.weather[0].main.toLowerCase();
-        setAllWeather(allWeather => ({ ...allWeather, [`${city}-${country}`]: { temperature, state } }))
+        setAllWeather(allWeather => ({ ...allWeather, [`${getCityCode(city, countryCode)}`]: { temperature, state } }))
       } catch(err) {
         if (err.response) {
           setError('Error en el servidor');
@@ -62,8 +64,8 @@ const CityList = ({ cities, onClickCity }) => {
         }
       }
     }
-    cities.forEach(({ city, country, countryCode }) => {
-      setWeather(city, country, countryCode);
+    cities.forEach(({ city, countryCode }) => {
+      setWeather(city, countryCode);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cities])
@@ -75,7 +77,7 @@ const CityList = ({ cities, onClickCity }) => {
       }
       <List>
         {
-          cities.map(cityAndCountry => renderCityAndCountry(onClickCity)(cityAndCountry, allWeather[`${cityAndCountry.city}-${cityAndCountry.country}`]))
+          cities.map(cityAndCountry => renderCityAndCountry(onClickCity)(cityAndCountry, allWeather[`${getCityCode(cityAndCountry.city, cityAndCountry.countryCode)}`]))
         }
       </List>
     </div>
