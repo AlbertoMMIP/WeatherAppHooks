@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import CityInfo from '../components/CytiInfo/CityInfo';
 import Weather from '../components/Weather';
 import WeatherDetails from '../components/WeatherDetails';
@@ -41,19 +42,19 @@ const dataExample = [
 ];
 
 const forecastItemListExample = [
-  { hour: 18, state: 'cloud', temperature: 9, weekDay: 'Martes' },
-  { hour: 10, state: 'fog', temperature: 5, weekDay: 'Miercoles' },
   { hour: 14, state: 'rain', temperature: 7, weekDay: 'Jueves' },
-  { hour: 3, state: 'sunny', temperature: 15, weekDay: 'Viernes' },
-  { hour: 9, state: 'fog', temperature: 13, weekDay: 'Sabado' },
-  { hour: 11, state: 'cloudy', temperature: 10, weekDay: 'Domingo' },
-  { hour: 13, state: 'sunny', temperature: 30, weekDay: 'Lunes' }
+  { hour: 3, state: 'clear', temperature: 15, weekDay: 'Viernes' },
+  { hour: 9, state: 'thunderstorm', temperature: 13, weekDay: 'Sabado' },
+  { hour: 11, state: 'clouds', temperature: 10, weekDay: 'Domingo' },
+  { hour: 13, state: 'drizzle', temperature: 30, weekDay: 'Lunes' }
 ]
 
 const CityPage = () => {
+  const params = useParams();
+  console.log('params', params);
   const city = 'CDMX';
   const country = 'México';
-  const state = 'sunny';
+  const state = 'clear';
   const temperature = 26;
   const humidity = 80;
   const wind = 10;

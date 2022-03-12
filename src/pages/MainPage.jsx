@@ -13,9 +13,9 @@ const cities = [
 
 const MainPage = () => {
   const history = useHistory();
-  const onClickHandler = () => {
+  const onClickHandler = (city, countryCode) => {
     // Permite trabajar con la url y cambiarla dentro de la programacion
-    history.push('/city')
+    history.push(`/city/${countryCode}/${city}`);
   }
 
   return (
