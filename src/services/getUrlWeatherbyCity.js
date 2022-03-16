@@ -7,6 +7,6 @@ export const getUrlWeatherByCity = city =>{
 export const getUrlWeatherByCityAndCountryCode = (city, countryCode) =>{
     return `${base_url}?q=${city},${countryCode}&appid=${api_key}`;
 }
-export const getUrlForeCastByCity = city =>{
-    return `${base_url_forecast}?q=${city}&appid=${api_key}`;
+export const getUrlForeCastByCity = (city, countryCode) =>{
+    return `${base_url_forecast}?q=${city},${countryCode}&appid=${api_key}`;
 }

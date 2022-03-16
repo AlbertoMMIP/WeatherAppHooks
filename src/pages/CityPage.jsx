@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid } from '@mui/material';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import CityInfo from '../components/CytiInfo/CityInfo';
 import Weather from '../components/Weather';
 import WeatherDetails from '../components/WeatherDetails';
 import Forecast from '../components/ForeCast';
 import ForecastChart from '../components/ForecastChart';
 import AppFrame from '../components/AppFrame';
+import { getUrlForeCastByCity } from '../services/getUrlWeatherbyCity';
 
 const dataExample = [
   {
@@ -49,17 +51,42 @@ const forecastItemListExample = [
   { hour: 13, state: 'drizzle', temperature: 30, weekDay: 'Lunes' }
 ]
 
+
+
 const CityPage = () => {
-  const params = useParams();
-  console.log('params', params);
-  const city = 'CDMX';
+  const [data, setData] = useState(null);
+  const [forecastItemList, setForecastItemList] = useState(null);
+
+  const { city, countryCode } = useParams();
+  
   const country = 'México';
   const state = 'clear';
   const temperature = 26;
   const humidity = 80;
   const wind = 10;
-  const data = dataExample;
-  const forecastItemList = forecastItemListExample;
+  // const data = dataExample;
+  // const forecastItemList = forecastItemListExample;
+
+  useEffect(() => {
+
+    const getForecast = async () => {
+      const url = getUrlForeCastByCity(city, countryCode);
+      try {
+        const { data } = await axios.get(url)
+
+        console.log('data from server => ', data);
+
+        setData(dataExample);
+        setForecastItemList(forecastItemListExample)
+      } catch (error) {
+        console.error(error.message)
+      }
+    }
+
+    getForecast();
+    
+  }, [city, countryCode])
+  
 
   return (
     <AppFrame>
@@ -78,10 +105,14 @@ const CityPage = () => {
           <WeatherDetails humidity={humidity} wind={wind} />
         </Grid>
         <Grid item>
-          <ForecastChart data={data} />
+          {
+            data && <ForecastChart data={data} />
+          }
         </Grid>
         <Grid item>
-          <Forecast forecastItemList={forecastItemList} />
+          {
+            forecastItemList && <Forecast forecastItemList={forecastItemList} />
+          }
         </Grid>
       </Grid>
     </AppFrame>
