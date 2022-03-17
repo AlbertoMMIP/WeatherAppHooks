@@ -8,7 +8,7 @@ const ForecastChart = ({ data }) => {
       <LineChart
         margin={{ top: 20, bottom: 20, left: 5, right: 5 }}
         data={data} >
-          <XAxis dataKey={'dayHour'}></XAxis>
+          <XAxis dataKey={'dayName'}></XAxis>
           <YAxis></YAxis>
           <CartesianGrid></CartesianGrid>
           <Tooltip></Tooltip>
@@ -23,7 +23,7 @@ const ForecastChart = ({ data }) => {
 ForecastChart.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      dayHour: PropTypes.string.isRequired,
+      dayName: PropTypes.string.isRequired,
       min: PropTypes.number.isRequired,
       max: PropTypes.number.isRequired,
     }).isRequired
