@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { PropTypes } from 'prop-types';
-import axios from 'axios';
-import convertUnits from 'convert-units';
 import { Grid, List, ListItem, Alert } from '@mui/material';
+import useCityList from './../../hooks/useCityList';
 import CityInfo from './../CytiInfo';
 import Weather from './../Weather';
-import { getUrlWeatherByCityAndCountryCode } from '../../services/getUrlWeatherbyCity';
+import { getCityCode } from './../../utils/utils';
 
-
-const getCityCode = (city, countryCode) => `${city}-${countryCode}`
 // renderCityAndCountry it will be a funct that return another function
 const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
   const { city, country, countryCode } = cityAndCountry
@@ -34,43 +31,8 @@ const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
 }
 
 const CityList = ({ cities, onClickCity }) => {
-  /*
-    allWeather = {
-      'Ciudad de México-MX': {},
-      'Madrid-ES': {},
-      'Buenos Aires-AR': {},
-      'Bogota-CO': {}
-    }
-  */
-  const [allWeather, setAllWeather] = useState({});
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    if (allWeather['Ciudad de México-México']) return;
-    const setWeather = async (city, countryCode) => {
-      try {
-        const url = getUrlWeatherByCityAndCountryCode(city, countryCode)
-        const response = await axios.get(url)
-        const { data } = response;
-        const temperature = Number(convertUnits(data.main.temp).from('K').to('C').toFixed(0))
-        const state = data.weather[0].main.toLowerCase();
-        setAllWeather(allWeather => ({ ...allWeather, [`${getCityCode(city, countryCode)}`]: { temperature, state } }))
-      } catch(err) {
-        if (err.response) {
-          setError('Error en el servidor');
-        } else if (err.request) { // Errores que no llegan al server
-          setError('Server inaccesible o sin internet');
-        } else { // Errores inesperados
-          setError('Error inesperado');
-        }
-      }
-    }
-    cities.forEach(({ city, countryCode }) => {
-      setWeather(city, countryCode);
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cities])
-
+  const {allWeather, error, setError} = useCityList(cities)
+  
   return (
     <div>
       {
