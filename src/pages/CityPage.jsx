@@ -13,17 +13,12 @@ import ForecastChart from '../components/ForecastChart';
 import AppFrame from '../components/AppFrame';
 import { getUrlForeCastByCity } from '../services/getUrlWeatherbyCity';
 
-const CityPage = () => {
-  const [data, setData] = useState(null);
+
+const useCityPage = () => {
+  const [charData, setCharData] = useState(null);
   const [forecastItemList, setForecastItemList] = useState(null);
 
   const { city, countryCode } = useParams();
-  
-  const country = 'México';
-  const state = 'clear';
-  const temperature = 26;
-  const humidity = 80;
-  const wind = 10;
 
   useEffect(() => {
 
@@ -48,9 +43,10 @@ const CityPage = () => {
             dayName: day.format('ddd'),
             min: toCelsius(min),
             max: toCelsius(max),
+            hasTemps: temps.length > 0 ? true : false
           }
-        });
-        setData(dataAux);
+        }).filter(item => item.hasTemps)
+        setCharData(dataAux);
         const interval = [4, 8, 12, 16, 20, 24]
         const forecastItemListAux = data.list
           .filter((item, index) => interval.includes(index))
@@ -70,7 +66,18 @@ const CityPage = () => {
     getForecast();
     
   }, [city, countryCode])
-  
+
+  return { city, charData, forecastItemList}
+}
+
+const CityPage = () => {  
+  const { city, charData, forecastItemList} = useCityPage();
+
+  const country = 'México';
+  const state = 'clear';
+  const temperature = 26;
+  const humidity = 80;
+  const wind = 10;
 
   return (
     <AppFrame>
@@ -90,7 +97,7 @@ const CityPage = () => {
         </Grid>
         <Grid item>
           {
-            data && <ForecastChart data={data} />
+            charData && <ForecastChart data={charData} />
           }
         </Grid>
         <Grid item>
