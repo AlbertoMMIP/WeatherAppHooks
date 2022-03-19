@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid, LinearProgress } from '@mui/material';
-
 import 'moment/locale/es-mx';
 import CityInfo from '../components/CytiInfo/CityInfo';
 import Weather from '../components/Weather';
@@ -9,15 +8,20 @@ import Forecast from '../components/ForeCast';
 import ForecastChart from '../components/ForecastChart';
 import AppFrame from '../components/AppFrame';
 import useCityPage from './../hooks/useCityPage';
+import useCityList from '../hooks/useCityList';
+import { getCityCode } from '../utils/utils';
+import { getCountryName } from '../services/cities';
 
 const CityPage = () => {  
-  const { city, charData, forecastItemList} = useCityPage();
+  const { city, charData, forecastItemList, countryCode } = useCityPage();
+  const { allWeather } = useCityList([{ city, countryCode }])
 
-  const country = 'México';
-  const state = 'clear';
-  const temperature = 26;
-  const humidity = 80;
-  const wind = 10;
+  const weather = allWeather && allWeather[getCityCode(city, countryCode)]
+  const country = countryCode && getCountryName(countryCode);
+  const humidity = weather && weather.humidity;
+  const wind = weather && weather.wind;
+  const state = weather && weather.state;
+  const temperature = weather && weather.temperature;
 
   return (
     <AppFrame>
@@ -33,7 +37,10 @@ const CityPage = () => {
         <Grid container item xs={12}
           justifyContent='center'>
           <Weather state={state} temperature={temperature} />
-          <WeatherDetails humidity={humidity} wind={wind} />
+          {
+            humidity && wind &&
+            <WeatherDetails humidity={humidity} wind={wind} />
+          }
         </Grid>
         <Grid item>
         {

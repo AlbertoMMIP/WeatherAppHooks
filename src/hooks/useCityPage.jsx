@@ -12,6 +12,7 @@ const useCityPage = () => {
 
   const { city, countryCode } = useParams();
 
+  // Only use for debuging
   useDebugValue(`city ${city}`)
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const useCityPage = () => {
     
   }, [city, countryCode])
 
-  return { city, charData, forecastItemList}
+  return { city, countryCode, charData, forecastItemList}
 }
 
 export default useCityPage;
