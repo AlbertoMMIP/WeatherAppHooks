@@ -16,7 +16,6 @@ const useCityList = (cities) => {
   */
 
   useEffect(() => {
-    if (allWeather['Ciudad de México-México']) return;
     const setWeather = async (city, countryCode) => {
       try {
         const url = getUrlWeatherByCityAndCountryCode(city, countryCode)

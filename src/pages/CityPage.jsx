@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Grid, LinearProgress } from '@mui/material';
 import 'moment/locale/es-mx';
 import CityInfo from '../components/CytiInfo/CityInfo';
@@ -14,7 +14,10 @@ import { getCountryName } from '../services/cities';
 
 const CityPage = () => {  
   const { city, charData, forecastItemList, countryCode } = useCityPage();
-  const { allWeather } = useCityList([{ city, countryCode }])
+
+  const cities = useMemo(() => ([{ city, countryCode }]), [city, countryCode]);
+
+  const { allWeather } = useCityList(cities)
 
   const weather = allWeather && allWeather[getCityCode(city, countryCode)]
   const country = countryCode && getCountryName(countryCode);
