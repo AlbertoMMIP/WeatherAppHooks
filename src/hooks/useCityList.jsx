@@ -3,8 +3,7 @@ import axios from 'axios';
 import { getUrlWeatherByCityAndCountryCode } from './../services/getUrlWeatherbyCity';
 import getAllWeather from '../utils/transform/getAllWeather';
 
-const useCityList = (cities) => {
-  const [allWeather, setAllWeather] = useState({});
+const useCityList = (cities, onSetAllWeather) => {
   const [error, setError] = useState(null);
   /*
     allWeather = {
@@ -21,7 +20,9 @@ const useCityList = (cities) => {
         const url = getUrlWeatherByCityAndCountryCode(city, countryCode)
         const response = await axios.get(url)
         const allWeatherAux = getAllWeather(response, city, countryCode);
-        setAllWeather(allWeather => ({ ...allWeather, ...allWeatherAux }))
+        // setAllWeather(allWeather => ({ ...allWeather, ...allWeatherAux }))
+        onSetAllWeather(allWeatherAux);
+
       } catch(err) {
         if (err.response) {
           setError('Error en el servidor');
@@ -35,10 +36,9 @@ const useCityList = (cities) => {
     cities.forEach(({ city, countryCode }) => {
       setWeather(city, countryCode);
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cities])
+  }, [cities, onSetAllWeather])
 
-  return {allWeather, error, setError}
+  return {error, setError}
 }
 
 export default useCityList;

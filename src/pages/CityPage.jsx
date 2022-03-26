@@ -12,12 +12,12 @@ import useCityList from '../hooks/useCityList';
 import { getCityCode } from '../utils/utils';
 import { getCountryName } from '../services/cities';
 
-const CityPage = () => {  
+const CityPage = ({ allWeather, onSetAllWeather  }) => {  
   const { city, charData, forecastItemList, countryCode } = useCityPage();
 
   const cities = useMemo(() => ([{ city, countryCode }]), [city, countryCode]);
 
-  const { allWeather } = useCityList(cities)
+  useCityList(cities, onSetAllWeather)
 
   const weather = allWeather && allWeather[getCityCode(city, countryCode)]
   const country = countryCode && getCountryName(countryCode);
