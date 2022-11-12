@@ -11,6 +11,8 @@ import WelcomPage from './pages/WelcomPage';
 
 const App = () => {
   const [allWeather, setAllWeather] = useState({});
+  const [charData, onSetCharData] = useState(null);
+  const [forecastItemList, onSetForecastItemList] = useState(null);
 
   const onSetAllWeather = useCallback((newWeatherCity) => {
     setAllWeather(allWeather => ({ ...allWeather, ...newWeatherCity }))
@@ -18,15 +20,19 @@ const App = () => {
 
   const actions = useMemo(() => (
     {
-      onSetAllWeather
+      onSetAllWeather,
+      onSetCharData,
+      onSetForecastItemList
     }
-  ), [onSetAllWeather]);
+  ), [onSetAllWeather, onSetCharData, onSetForecastItemList]);
 
   const data = useMemo(() => (
     {
-      allWeather
+      allWeather,
+      charData,
+      forecastItemList
     }
-  ), [allWeather]);
+  ), [allWeather, charData, forecastItemList]);
 
   return (
     <Router>
