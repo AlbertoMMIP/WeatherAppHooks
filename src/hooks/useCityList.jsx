@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getUrlWeatherByCityAndCountryCode } from './../services/getUrlWeatherbyCity';
 import getAllWeather from '../utils/transform/getAllWeather';
+import { getCityCode } from '../utils/utils';
 
-const useCityList = (cities, onSetAllWeather) => {
+const useCityList = (cities, allWeather, onSetAllWeather) => {
   const [error, setError] = useState(null);
   /*
     allWeather = {
@@ -17,6 +18,8 @@ const useCityList = (cities, onSetAllWeather) => {
   useEffect(() => {
     const setWeather = async (city, countryCode) => {
       try {
+        const propName = getCityCode(city, countryCode)
+        onSetAllWeather({ [propName]: {} })
         const url = getUrlWeatherByCityAndCountryCode(city, countryCode)
         const response = await axios.get(url)
         const allWeatherAux = getAllWeather(response, city, countryCode);
@@ -34,9 +37,11 @@ const useCityList = (cities, onSetAllWeather) => {
       }
     }
     cities.forEach(({ city, countryCode }) => {
-      setWeather(city, countryCode);
+      if (!allWeather[getCityCode(city, countryCode)]) {
+        setWeather(city, countryCode);
+      }
     });
-  }, [cities, onSetAllWeather])
+  }, [cities, onSetAllWeather, allWeather])
 
   return {error, setError}
 }

@@ -17,7 +17,7 @@ const CityPage = ({ allWeather, onSetAllWeather  }) => {
 
   const cities = useMemo(() => ([{ city, countryCode }]), [city, countryCode]);
 
-  useCityList(cities, onSetAllWeather)
+  useCityList(cities, allWeather, onSetAllWeather)
 
   const weather = allWeather && allWeather[getCityCode(city, countryCode)]
   const country = countryCode && getCountryName(countryCode);
