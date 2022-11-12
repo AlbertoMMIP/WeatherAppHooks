@@ -11,28 +11,36 @@ import WelcomPage from './pages/WelcomPage';
 
 const App = () => {
   const [allWeather, setAllWeather] = useState({});
-  const [charData, onSetCharData] = useState(null);
-  const [forecastItemList, onSetForecastItemList] = useState(null);
+  const [allChartData, setAllChartData] = useState({});
+  const [allForecastItemList, setAllForecastItemList] = useState({});
 
   const onSetAllWeather = useCallback((newWeatherCity) => {
     setAllWeather(allWeather => ({ ...allWeather, ...newWeatherCity }))
   }, [setAllWeather])
 
+  const onSetChartData = useCallback((newChartData) => {
+    setAllChartData(chartData => ({ ...chartData, ...newChartData}))
+  }, [setAllChartData])
+
+  const onSetForecastItemList = useCallback((newForecastItemList) => {
+    setAllForecastItemList(forecastItemList => ({ ...forecastItemList, ...newForecastItemList }))
+  }, [setAllForecastItemList])
+
   const actions = useMemo(() => (
     {
       onSetAllWeather,
-      onSetCharData,
+      onSetChartData,
       onSetForecastItemList
     }
-  ), [onSetAllWeather, onSetCharData, onSetForecastItemList]);
+  ), [onSetAllWeather, onSetChartData, onSetForecastItemList]);
 
   const data = useMemo(() => (
     {
       allWeather,
-      charData,
-      forecastItemList
+      allChartData,
+      allForecastItemList
     }
-  ), [allWeather, charData, forecastItemList]);
+  ), [allWeather, allChartData, allForecastItemList]);
 
   return (
     <Router>
