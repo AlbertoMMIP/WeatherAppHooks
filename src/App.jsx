@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useCallback } from 'react';
 import { BrowserRouter as Router,
   Switch,
   Route
@@ -8,15 +8,16 @@ import MainPage from './pages/MainPage';
 import NotFound from './pages/NotFoundPage';
 import WelcomPage from './pages/WelcomPage';
 
+const initialValue = {
+  allWeather: {},
+  allChartData: {},
+  allForecastItemList: {}
+};
 
 const App = () => {
-  const initialValue = {
-    allWeather: {},
-    allChartData: {},
-    allForecastItemList: {}
-  };
+
   // action = { type: 'TYPE_DESC', payload: 'DATA' }
-  const reducer = (state, action) => {
+  const reducer = useCallback((state, action) => {
     switch (action.type) {
       case 'SET_ALL_WEATHER':
         const newWeatherCity = action.payload;
@@ -33,7 +34,7 @@ const App = () => {
       default:
         return state;
     }
-  };
+  }, []);
   const [state, dispatch] = useReducer(reducer, initialValue);
 
   /*
