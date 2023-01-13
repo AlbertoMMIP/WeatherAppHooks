@@ -1,4 +1,4 @@
-import React, { useMemo, useContext } from 'react';
+import React, { useMemo } from 'react';
 import { Grid, LinearProgress } from '@mui/material';
 import 'moment/locale/es-mx';
 import CityInfo from '../components/CytiInfo/CityInfo';
@@ -11,13 +11,13 @@ import useCityPage from './../hooks/useCityPage';
 import useCityList from '../hooks/useCityList';
 import { getCityCode } from '../utils/utils';
 import { getCountryName } from '../services/cities';
-import { WeatherStateContext, WeatherDispatchContext } from '../WeatherContext';
+import { useWeatherStateContext, useWeatherDispatchContext } from '../WeatherContext';
 
 
 const CityPage = () => {
 
-  const actions = useContext(WeatherDispatchContext)
-  const data = useContext(WeatherStateContext)
+  const actions = useWeatherDispatchContext()
+  const data = useWeatherStateContext()
   const { allWeather, allChartData, allForecastItemList } = data
   // const { onSetAllWeather, onSetChartData, onSetForecastItemList } = actions
 
