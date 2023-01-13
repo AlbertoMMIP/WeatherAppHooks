@@ -5,7 +5,7 @@ import CityList from './../components/CityList';
 import AppFrame from './../components/AppFrame';
 import { getCities } from '../services/cities';
 
-const MainPage = ({ data, actions }) => {
+const MainPage = () => {
   const history = useHistory();
 
   const onClickHandler = React.useCallback((city, countryCode) => {
@@ -17,9 +17,7 @@ const MainPage = ({ data, actions }) => {
       <Paper elevation={3}>
         <CityList
           cities={getCities()}
-          onClickCity={onClickHandler}
-          data={data}
-          actions={actions} />
+          onClickCity={onClickHandler} />
       </Paper>
     </AppFrame>
   )

@@ -7,6 +7,7 @@ import CityPage from './pages/CityPage';
 import MainPage from './pages/MainPage';
 import NotFound from './pages/NotFoundPage';
 import WelcomPage from './pages/WelcomPage';
+import { WeatherStateContext, WeatherDispatchContext } from './WeatherContext';
 
 const initialValue = {
   allWeather: {},
@@ -37,60 +38,27 @@ const App = () => {
   }, []);
   const [state, dispatch] = useReducer(reducer, initialValue);
 
-  /*
-  const [allWeather, setAllWeather] = useState({});
-  const [allChartData, setAllChartData] = useState({});
-  const [allForecastItemList, setAllForecastItemList] = useState({});
-
-  const onSetAllWeather = useCallback((newWeatherCity) => {
-    setAllWeather(allWeather => ({ ...allWeather, ...newWeatherCity }))
-  }, [setAllWeather])
-
-  const onSetChartData = useCallback((newChartData) => {
-    setAllChartData(chartData => ({ ...chartData, ...newChartData}))
-  }, [setAllChartData])
-
-  const onSetForecastItemList = useCallback((newForecastItemList) => {
-    setAllForecastItemList(forecastItemList => ({ ...forecastItemList, ...newForecastItemList }))
-  }, [setAllForecastItemList])
-
-  const actions = useMemo(() => (
-    {
-      onSetAllWeather,
-      onSetChartData,
-      onSetForecastItemList
-    }
-  ), [onSetAllWeather, onSetChartData, onSetForecastItemList]);
-
-  const data = useMemo(() => (
-    {
-      allWeather,
-      allChartData,
-      allForecastItemList
-    }
-  ), [allWeather, allChartData, allForecastItemList]);
-  */
   return (
-    <Router>
-      <Switch>
-        <Route exact path='/'>
-          <WelcomPage />
-        </Route>
-        <Route path='/main'>
-          <MainPage
-            data={state}
-            actions={dispatch} />
-        </Route>
-        <Route path='/city/:countryCode/:city'>
-          <CityPage
-            data={state}
-            actions={dispatch} />
-        </Route>
-        <Route>
-          <NotFound />
-        </Route>
-      </Switch>
-    </Router>
+    <WeatherDispatchContext.Provider value={dispatch} >
+      <WeatherStateContext.Provider value={state}>
+        <Router>
+          <Switch>
+            <Route exact path='/'>
+              <WelcomPage />
+            </Route>
+            <Route path='/main'>
+              <MainPage />
+            </Route>
+            <Route path='/city/:countryCode/:city'>
+              <CityPage />
+            </Route>
+            <Route>
+              <NotFound />
+            </Route>
+          </Switch>
+        </Router>
+      </WeatherStateContext.Provider>
+    </WeatherDispatchContext.Provider>
   )
 }
 

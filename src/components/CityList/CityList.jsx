@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { PropTypes } from 'prop-types';
 import { List, Alert } from '@mui/material';
 import useCityList from './../../hooks/useCityList';
 import { getCityCode } from './../../utils/utils';
 import { CityListItem } from '../CytiListItem/CityListItem';
+import { WeatherStateContext, WeatherDispatchContext } from '../../WeatherContext';
 
 // renderCityAndCountry it will be a funct that return another function
 const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
@@ -15,7 +16,9 @@ const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
   />
 }
 
-const CityList = ({ cities, onClickCity, data, actions }) => {
+const CityList = ({ cities, onClickCity }) => {
+  const actions = useContext(WeatherDispatchContext)
+  const data = useContext(WeatherStateContext)
   // const { onSetAllWeather } = actions
   const { allWeather } = data
   const {error, setError} = useCityList(cities, allWeather, actions)
