@@ -2,7 +2,8 @@ const cities = [
   { city: 'México', country: 'Ciudad de México', countryCode: 'MX' },
   { city: 'España', country: 'Madrid', countryCode: 'ES' },
   { city: 'Argentina', country: 'Buenos Aires', countryCode: 'AR' },
-  { city: 'Colombia', country: 'Bogota', countryCode: 'CO' }
+  { city: 'Colombia', country: 'Bogota', countryCode: 'CO' },
+  { city: 'Canada', country: 'Vancouver', countryCode: 'CA' }
 ]
 
 export const getCities = () => (cities)
