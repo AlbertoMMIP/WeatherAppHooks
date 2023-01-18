@@ -6,5 +6,10 @@ export default {
   component: Weather
 }
 
-export const WeatherCloud = () => <Weather temperature={10} state='clouds' />
-export const WeatherSunny = () => <Weather temperature={10} state='clear' />
+const Templeate = (args) => <Weather {...args} />
+
+export const WeatherCloud = Templeate.bind({})
+WeatherCloud.args = { temperature: 10, state: 'clouds' }
+
+export const WeatherSunny = Templeate.bind({})
+WeatherSunny.args = { temperature: 10, state: 'clear' }
