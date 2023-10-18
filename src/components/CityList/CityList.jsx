@@ -14,7 +14,7 @@ const renderCityAndCountry = eventOnClickCity => (cityAndCountry, weather) => {
       onClick={() => eventOnClickCity(city, countryCode)}>
       <Grid container
         justify="center"
-        alignItems="center"  >
+        alignItems="center" >
         <Grid item
           md={9}
           xs={12} >
