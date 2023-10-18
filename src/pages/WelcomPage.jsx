@@ -28,7 +28,7 @@ const WelcomPage = () => {
                   justifyContent='center'
                   alignItems='center'>
                     <Typography variant='h4' color='inherit'>
-                      Weather App
+                      Weather App by Alberto Martinez - Udemy Course
                     </Typography>
                     <Link color='inherit'
                       aria-label='menu'

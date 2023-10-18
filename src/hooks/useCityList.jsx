@@ -30,11 +30,11 @@ const useCityList = (cities, allWeather, actions) => {
 
       } catch(err) {
         if (err.response) {
-          setError('Error en el servidor');
+          setError('Server error');
         } else if (err.request) { // Errores que no llegan al server
-          setError('Server inaccesible o sin internet');
+          setError('Server unaccesible or no internet');
         } else { // Errores inesperados
-          setError('Error inesperado');
+          setError('Unknow error');
         }
       }
     }
