@@ -9,3 +9,5 @@ export const SNOW = 'snow';
 export const THUNDER = 'thunder';
 
 export const DRIZZLE = 'drizzle';
+
+export const MIST = 'mist';
