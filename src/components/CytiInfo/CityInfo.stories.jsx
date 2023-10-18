@@ -5,11 +5,12 @@ export default {
   title: 'CityInfo',
   component: CityInfo,
   argTypes: {
-    city: { control: { type: "text" } },
-    country: { control: { type: "text" } }
+    city: { control: { type: 'text' }},
+    country: { control: { type: 'text' }}
   }
 }
 
-export const CityExample = (args) => (<CityInfo {...args}></CityInfo>)
+export const CityExample = (args) => <CityInfo {...args} ></CityInfo>
 
-CityExample.args = { city:'The Royas', country:'Mexico' }
+
+CityExample.args = { city: 'Vancouver', country: 'Canada' }

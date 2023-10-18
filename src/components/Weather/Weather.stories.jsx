@@ -6,11 +6,10 @@ export default {
   component: Weather
 }
 
-const Template = (args) => <Weather {...args} />
+const Templeate = (args) => <Weather {...args} />
 
-
-export const WeatherCloud = Template.bind({})
+export const WeatherCloud = Templeate.bind({})
 WeatherCloud.args = { temperature: 10, state: 'clouds' }
 
-export const WeatherSunny = Template.bind({})
-WeatherSunny.args = { temperature: 20, state: 'clear' }
+export const WeatherSunny = Templeate.bind({})
+WeatherSunny.args = { temperature: 10, state: 'clear' }

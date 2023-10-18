@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import WelcomeScreen from './../components/Welcome';
 import { Grid, Link, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
@@ -6,6 +6,7 @@ import { IconContext } from 'react-icons';
 import { WiDaySunny } from 'react-icons/wi';
 
 const WelcomPage = () => {
+  const iconContextSize = useMemo(() => ({ size: '6em' }), []);
   return (
     <WelcomeScreen>
       <Grid container
@@ -17,7 +18,7 @@ const WelcomPage = () => {
               justifyContent='center'
               alignItems='center'>
                 <Grid item>
-                  <IconContext.Provider value={{ size:'6em'}}>
+                  <IconContext.Provider value={iconContextSize}>
                     <WiDaySunny />
                   </IconContext.Provider>
                 </Grid>
